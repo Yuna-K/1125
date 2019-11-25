@@ -1,0 +1,214 @@
+<html>
+  <head>
+    	<title> 김유나 </title>
+	<meta charset="UTF-8">
+	<meta name="description" content="김유나 포트폴리오">
+	<meta name="keywords" content="디자인, 기획">
+  <link rel="stylesheet" href="C:/Users/user/Desktop/style.css">
+  
+    <style>
+      #snowflakeContainer {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        display: none;
+      }
+
+      .snowflake {
+        position: fixed;
+        /*background-color: #ccc;*/
+        background-color:red;
+        user-select: none;
+        z-index: 1000;
+        pointer-events: none;
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+      }
+    </style>
+    <script>
+      var snowflakes = [];
+      var browserWidth;
+      var browserHeight;
+      var numberOfSnowflakes = 500;
+
+      window.addEventListener("DOMContentLoaded", generateSnowflakes, false);
+
+      // Make snowflakes
+      function Snowflake(element, speed, xPos, yPos) {
+        // set initial snowflake properties
+        this.element = element;
+        this.speed = speed;
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.scale = 1;
+
+        // declare variables used for snowflake's motion
+        this.counter = 0;
+        this.sign = Math.random() < 0.5 ? 1 : -1;
+
+        // setting an initial opacity and size for our snowflake
+        this.element.style.opacity = (0.1 + Math.random()) / 3;
+      }
+
+      // The function responsible for actually moving our snowflake
+      Snowflake.prototype.move = function() {
+        this.counter += this.speed / 5000;
+        this.xPos += (this.sign * this.speed * Math.cos(this.counter)) / 400;
+        this.yPos += Math.sin(this.counter) / 40 + this.speed / 30;
+        this.scale = 0.5 + Math.abs((10 * Math.cos(this.counter)) / 200);
+
+        // setting our snowflake's position
+        setTransform(
+          Math.round(this.xPos),
+          Math.round(this.yPos),
+          this.scale,
+          this.element
+        );
+
+        // if snowflake goes below the browser window, move it back to the top
+        if (this.yPos > browserHeight) {
+          this.yPos = -50;
+        }
+      };
+
+      // A performant way to set your snowflake's position and size
+      function setTransform(xPos, yPos, scale, el) {
+        el.style.transform = `translate(${xPos}px, ${yPos}px) scale(${scale}, ${scale})`;
+      }
+
+      // The function responsible for creating the snowflake
+      function generateSnowflakes() {
+        var originalSnowflake = document.querySelector(".snowflake");
+
+        // access our snowflake element's parent container
+        var snowflakeContainer = originalSnowflake.parentNode;
+        snowflakeContainer.style.display = "block";
+
+        // get our browser's size
+        browserWidth = document.documentElement.clientWidth;
+        browserHeight = document.documentElement.clientHeight;
+
+        // create each individual snowflake
+        for (var i = 0; i < numberOfSnowflakes; i++) {
+          var snowflakeClone = originalSnowflake.cloneNode(true);
+          snowflakeContainer.appendChild(snowflakeClone);
+
+          // set our snowflake's initial position and related properties
+          var initialXPos = getPosition(50, browserWidth);
+          var initialYPos = getPosition(50, browserHeight);
+          var speed = 5 + Math.random() * 40;
+
+          // create our Snowflake object
+          var snowflakeObject = new Snowflake(
+            snowflakeClone,
+            speed,
+            initialXPos,
+            initialYPos
+          );
+          snowflakes.push(snowflakeObject);
+        }
+
+        // remove the original snowflake because we no longer need it visible
+        snowflakeContainer.removeChild(originalSnowflake);
+
+        moveSnowflakes();
+      }
+
+      function moveSnowflakes() {
+        for (var i = 0; i < snowflakes.length; i++) {
+          var snowflake = snowflakes[i];
+          snowflake.move();
+        }
+
+        requestAnimationFrame(moveSnowflakes);
+      }
+
+      // This function returns a number between (maximum - offset) and (maximum + offset)
+      function getPosition(offset, size) {
+        return Math.round(-1 * offset + Math.random() * (size + 2 * offset));
+      }
+    </script>
+  </head>
+  <body style="background-color: black;">
+    <div id="snowflakeContainer">
+      <span class="snowflake"></span>
+    </div>
+
+      <!-- Main section start -->
+	<div class="main-site-warp">
+		<div class="site-menu-warp">
+			            
+            <!-- Main menu -->
+			<nav class="site-menu">
+				<a href="" class="active">Home</a>
+				<a href="">About Me</a>
+				<a href="">Blog</a>
+				<a href="">Portfolio</a>
+				<a href="">Contact</a>
+			
+            </nav>
+        </div>
+    
+			</header>
+            <div class="site-content-warp"></div>
+        
+			<!-- Left Side section -->
+			<div class="main-sidebar">
+				<div class="mb-warp">
+					<a href="index.html" class="site-logo">
+						<h2> 김유나 </h2>
+						<h3>UX/Service designer</h3>
+					</a>
+					<div class="about-info">
+						<h2>Welcome to the world of Yuna Kim</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus libero mauris, bibendum eget sapien ac, ultrices rhoncus ipsum. Donec nec sapien in urna fermentum ornare. Morbi vel ultrices leo. Sed eu turpis eu arcu vehicula fringilla ut vitae orci. Suspendisse maximus malesuada  </p>
+					</div>
+					<ul class="contact-info">
+						<li>+82 010-1234-5678</li>
+						<li><a href="mailto:ynkimkor@gmail.com">ynkimkor@gmail.com</a></li>
+					</ul>
+					<a href="#" class="site-btn">see my lovers <img src="img/arrow-right.png" alt=""></a>
+				</div>
+			</div>
+			<!-- Left Side section end -->
+			<!-- Page start -->
+			<div class="page-section">
+				<div class="hero-section">
+					<div class="hero-scroll">
+						<div class="hero-track">
+							<div class="hs-item set-bg" data-setbg="img/hero/1.jpg">
+								<div class="hs-info">
+									<h5>CAT</h5>
+									<p>My Favorite</p>
+									<a href="#"><img src="img/arrow-right.png" alt=""></a>
+                                    <image src="data:image/jpeg;base64,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"></image>
+                                </div>
+							</div>
+							<div class="hs-item set-bg" data-setbg="img/hero/2.jpg">
+								<div class="hs-info">
+									<h5>CAT2</h5>
+									<p>My Love</p>
+                  <image src="https://images2.minutemediacdn.com/image/upload/c_crop,h_1193,w_2121,x_0,y_175/f_auto,q_auto,w_1100/v1554921998/shape/mentalfloss/549585-istock-909106260.jpg" width="30%"></image>
+                                </div>
+							</div>
+							<div class="hs-item set-bg" data-setbg="img/hero/1.jpg">
+								<div class="hs-info">
+									<h5>CAT3</h5>
+									<p>MEME</p>
+                                    <a href="#"><img src="img/arrow-right.png" alt=""></a>
+                                    <image src="https://i.ytimg.com/vi/pjRs_WT8VzM/maxresdefault.jpg" width="30%"> </image>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Page end -->
+		</div>
+		<div class="copyright"><p>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | by 학생이름 </a>
+  </p></div>
+  </div>
+  </body>
+</html>
